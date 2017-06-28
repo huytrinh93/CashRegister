@@ -9,6 +9,11 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Date;
+import java.util.*;
+import java.text.*;
+import javax.swing.Timer;
+
 
 public class dangnhap extends JFrame {
 
@@ -17,6 +22,7 @@ public class dangnhap extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private JLabel lblNgy;
 
 	/**
 	 * Launch the application.
@@ -45,6 +51,20 @@ public class dangnhap extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		// Hien thi ngay thang nam
+		Date date = new Date();
+		SimpleDateFormat ft = new SimpleDateFormat ("E MM/dd/yyyy 'at' hh:mm:ss a");
+		lblNgy = new JLabel(ft.format(date));
+		lblNgy.setBounds(12, 13, 200, 16);
+		contentPane.add(lblNgy);
+        Timer timer = new Timer(1, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	lblNgy.setText(ft.format(new Date()));
+            }
+        });
+        timer.start();
+/*
 		JLabel lblNgy = new JLabel("Ng\u00E0y");
 		lblNgy.setBounds(12, 13, 56, 16);
 		contentPane.add(lblNgy);
@@ -56,7 +76,7 @@ public class dangnhap extends JFrame {
 		JLabel lblNm = new JLabel("N\u0103m");
 		lblNm.setBounds(12, 71, 56, 16);
 		contentPane.add(lblNm);
-		
+	
 		textField = new JTextField();
 		textField.setBounds(80, 10, 116, 22);
 		contentPane.add(textField);
@@ -71,12 +91,12 @@ public class dangnhap extends JFrame {
 		textField_2.setColumns(10);
 		textField_2.setBounds(80, 68, 116, 22);
 		contentPane.add(textField_2);
-		
+*/		
 		JLabel lblVuiLngNhp = new JLabel("Vui l\u00F2ng nh\u1EADp Password");
 		lblVuiLngNhp.setBounds(121, 120, 142, 16);
 		contentPane.add(lblVuiLngNhp);
 		
-		JLabel lblPasswork = new JLabel("Passwork");
+		JLabel lblPasswork = new JLabel("Password");
 		lblPasswork.setBounds(12, 170, 56, 16);
 		contentPane.add(lblPasswork);
 		
@@ -92,8 +112,18 @@ public class dangnhap extends JFrame {
 				gui.Gui();
 			}
 		});
-		btnngNhp.setBounds(162, 202, 97, 25);
+		btnngNhp.setBounds(220, 202, 97, 25);
 		contentPane.add(btnngNhp);
+		
+		JButton btnXoa = new JButton("Xóa");
+		btnXoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textField_3.setText("");
+			}
+		});
+		btnXoa.setBounds(100, 202, 97, 25);
+		contentPane.add(btnXoa);
 	}
-
+	
 }
+
