@@ -123,9 +123,9 @@ public void setOutputFile(String inputFile) {
 
     public static void main(String[] args) throws WriteException, IOException {
         WriteExcel test = new WriteExcel();
-        test.setOutputFile("c:/temp/lars.xls");
+        test.setOutputFile(System.getProperty("user.dir")+"/lars.xls");
         test.write();
         System.out
-                .println("Please check the result file under c:/temp/lars.xls ");
+                .println("Please check the result file under [current directory]/lars.xls ");
     }
 }
