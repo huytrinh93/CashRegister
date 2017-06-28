@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 import java.awt.Font;
@@ -786,5 +788,13 @@ public class Gui extends JFrame {
 		textField_52.setColumns(10);
 		textField_52.setBounds(632, 144, 285, 208);
 		panel_2.add(textField_52);
+	/*
+		JPanel panel_3 = new JPanel();
+		tabbedPane.addTab("Tinh tien", null, panel_3, null);
+		panel_3.setLayout(null);
+		
+		calculator calculator = new calculator();
+		panel_3.add(calculator);
+	*/
 	}
 }
