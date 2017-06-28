@@ -110,6 +110,8 @@ public class dangnhap extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Gui gui = new Gui();
 				gui.Gui();
+				contentPane.setVisible(false);
+				dispose();
 			}
 		});
 		btnngNhp.setBounds(220, 202, 97, 25);
