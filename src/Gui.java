@@ -714,6 +714,7 @@ public class Gui extends JFrame {
 		panel_2.add(label_25);
 		
 		update_customer_name = new JTextField();
+		update_customer_name.setText("Huy");
 		update_customer_name.setColumns(10);
 		update_customer_name.setBounds(72, 497, 204, 22);
 		panel_2.add(update_customer_name);
@@ -723,6 +724,7 @@ public class Gui extends JFrame {
 		panel_2.add(lblDchVS_1);
 		
 		update_customer_service = new JTextField();
+		update_customer_service.setText("tron goi");
 		update_customer_service.setColumns(10);
 		update_customer_service.setBounds(150, 526, 126, 22);
 		panel_2.add(update_customer_service);
@@ -732,6 +734,7 @@ public class Gui extends JFrame {
 		panel_2.add(lblNgyn_1);
 		
 		update_customer_date = new JTextField();
+		update_customer_date.setText("6/29/2017");
 		update_customer_date.setColumns(10);
 		update_customer_date.setBounds(150, 555, 126, 22);
 		panel_2.add(update_customer_date);
@@ -741,6 +744,7 @@ public class Gui extends JFrame {
 		panel_2.add(lblSTin);
 		
 		update_customer_payment = new JTextField();
+		update_customer_payment.setText("$30");
 		update_customer_payment.setColumns(10);
 		update_customer_payment.setBounds(150, 584, 126, 22);
 		panel_2.add(update_customer_payment);

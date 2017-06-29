@@ -109,6 +109,9 @@ public void setOutputFile(String inputFile) {
         addCaption(sheet, 1, 0, "Địa chỉ");
         addCaption(sheet, 2, 0, "Số điện thoại");
         addCaption(sheet, 3, 0, "Lưu ý");
+        addCaption(sheet, 4, 0, "Dich Vu");
+        addCaption(sheet, 5, 0, "Ngay");
+        addCaption(sheet, 6, 0, "So Tien");
 
 
     }
