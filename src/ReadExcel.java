@@ -47,7 +47,7 @@ public class ReadExcel {
 
     public static void main(String[] args) throws IOException {
         ReadExcel test = new ReadExcel();
-        test.setInputFile(System.getProperty("user.dir")+"/lars.xls");
+        test.setInputFile(System.getProperty("user.dir")+"/khachhang.xls");
         test.read();
     }
 

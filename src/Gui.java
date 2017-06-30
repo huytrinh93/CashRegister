@@ -6,11 +6,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import jxl.write.WriteException;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Component;
@@ -20,6 +24,8 @@ import javax.swing.UIManager;
 import java.awt.Font;
 import javax.swing.JTextPane;
 import javax.swing.JScrollBar;
+import javax.swing.DropMode;
+import javax.swing.JTextArea;
 
 public class Gui extends JFrame {
 
@@ -75,7 +81,6 @@ public class Gui extends JFrame {
 	public JTextField textField_41;
 	public JTextField textField_42;
 	public JTextField show_customer_name;
-	public JTextField textField_44;
 	public JTextField update_customer_name;
 	public JTextField update_customer_service;
 	public JTextField update_customer_date;
@@ -696,14 +701,28 @@ public class Gui extends JFrame {
 		panel_2.add(show_customer_name);
 		show_customer_name.setColumns(10);
 		
+		JTextArea Hienthi_thongtin_khachhang = new JTextArea();
+		Hienthi_thongtin_khachhang.setBounds(23, 135, 377, 322);
+		panel_2.add(Hienthi_thongtin_khachhang);
+		
 		JButton btnHinTh_2 = new JButton("Hi\u1EC3n th\u1ECB ");
+		btnHinTh_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Hienthi_thongtin_khachhang.setText("");
+				hienthi_khachhang hienthi = new hienthi_khachhang();
+				System.out.println("ten: -- " + show_customer_name.getText());
+				String tmp = show_customer_name.getText();
+				try {
+					hienthi.main(tmp,Hienthi_thongtin_khachhang);
+					show_customer_name.setText("");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnHinTh_2.setBounds(57, 79, 97, 25);
 		panel_2.add(btnHinTh_2);
-		
-		textField_44 = new JTextField();
-		textField_44.setBounds(12, 136, 281, 274);
-		panel_2.add(textField_44);
-		textField_44.setColumns(10);
 		
 		JLabel lblChnhSaThng = new JLabel("Ch\u1EC9nh s\u1EEDa th\u00F4ng tin kh\u00E1ch h\u00E0ng");
 		lblChnhSaThng.setBounds(12, 468, 204, 16);
@@ -714,7 +733,6 @@ public class Gui extends JFrame {
 		panel_2.add(label_25);
 		
 		update_customer_name = new JTextField();
-		update_customer_name.setText("Huy");
 		update_customer_name.setColumns(10);
 		update_customer_name.setBounds(72, 497, 204, 22);
 		panel_2.add(update_customer_name);
@@ -724,7 +742,6 @@ public class Gui extends JFrame {
 		panel_2.add(lblDchVS_1);
 		
 		update_customer_service = new JTextField();
-		update_customer_service.setText("tron goi");
 		update_customer_service.setColumns(10);
 		update_customer_service.setBounds(150, 526, 126, 22);
 		panel_2.add(update_customer_service);
@@ -734,7 +751,6 @@ public class Gui extends JFrame {
 		panel_2.add(lblNgyn_1);
 		
 		update_customer_date = new JTextField();
-		update_customer_date.setText("6/29/2017");
 		update_customer_date.setColumns(10);
 		update_customer_date.setBounds(150, 555, 126, 22);
 		panel_2.add(update_customer_date);
@@ -744,12 +760,29 @@ public class Gui extends JFrame {
 		panel_2.add(lblSTin);
 		
 		update_customer_payment = new JTextField();
-		update_customer_payment.setText("$30");
 		update_customer_payment.setColumns(10);
 		update_customer_payment.setBounds(150, 584, 126, 22);
 		panel_2.add(update_customer_payment);
 		
 		JButton btniuChnh = new JButton("\u0110i\u1EC1u ch\u1EC9nh");
+		btniuChnh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				update_khachhang capnhat = new update_khachhang();
+				try {
+					capnhat.main(update_customer_name,update_customer_service,update_customer_date,update_customer_payment);
+					update_customer_name.setText("");
+					update_customer_service.setText("");
+					update_customer_date.setText("");
+					update_customer_payment.setText("");
+				} catch (WriteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		btniuChnh.setBounds(57, 616, 97, 25);
 		panel_2.add(btniuChnh);
 		
@@ -774,29 +807,49 @@ public class Gui extends JFrame {
 		panel_2.add(lblLu);
 		
 		add_customer_name = new JTextField();
-		add_customer_name.setText("Huy");
 		add_customer_name.setBounds(632, 47, 285, 22);
 		panel_2.add(add_customer_name);
 		add_customer_name.setColumns(10);
 		
 		
 		add_customer_address = new JTextField();
-		add_customer_address.setText("17716 Street");
 		add_customer_address.setColumns(10);
 		add_customer_address.setBounds(632, 80, 285, 22);
 		panel_2.add(add_customer_address);
 		
 		add_customer_phoneNumber = new JTextField();
-		add_customer_phoneNumber.setText("573-300-8845");
 		add_customer_phoneNumber.setColumns(10);
 		add_customer_phoneNumber.setBounds(632, 109, 285, 22);
 		panel_2.add(add_customer_phoneNumber);
 		
 		add_customer_note = new JTextField();
-		add_customer_note.setText("Nothing new");
 		add_customer_note.setColumns(10);
 		add_customer_note.setBounds(632, 144, 285, 208);
 		panel_2.add(add_customer_note);
+		
+		JButton btnThmVo = new JButton("Th\u00EAm v\u00E0o");
+		btnThmVo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				add_khachhang them = new add_khachhang();
+				try {
+					them.main(add_customer_name,add_customer_address,add_customer_phoneNumber,add_customer_note);
+					add_customer_name.setText("");
+					add_customer_address.setText("");
+					add_customer_phoneNumber.setText("");
+					add_customer_note.setText("");
+				} catch (WriteException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+
+			}
+		});
+		btnThmVo.setBounds(713, 378, 97, 25);
+		panel_2.add(btnThmVo);
+		
 	/*
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Tinh tien", null, panel_3, null);

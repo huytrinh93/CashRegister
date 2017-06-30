@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
+import javax.swing.JTextField;
+
 import jxl.Cell;
 import jxl.CellType;
 import jxl.CellView;
@@ -29,11 +31,11 @@ public class add_khachhang {
     private int lines=0;
 
 
-public void setOutputFile(String inputFile) {
-    this.inputFile = inputFile;
+    public void setOutputFile(String inputFile) {
+	    this.inputFile = inputFile;
     }
 
-    public void write() throws IOException, WriteException {
+    public void write(JTextField name,JTextField address,JTextField phone,JTextField note) throws IOException, WriteException {
         File file = new File(inputFile);
         
 		if(file.exists() && !file.isDirectory()) { 
@@ -46,7 +48,7 @@ public void setOutputFile(String inputFile) {
 		        WritableSheet excelSheet = aCopy.getSheet(0);
 		        Sheet sh2 = aCopy.getSheet(0);
 			    lines=sh2.getRows();
-			    createContent(excelSheet,lines);
+			    createContent(excelSheet,name, address, phone, note,lines);
 			    /*
 			    Gui g = new Gui();
 			    // Them ho va ten
@@ -75,7 +77,7 @@ public void setOutputFile(String inputFile) {
 		    WritableSheet excelSheet = workbook.getSheet(0);
 		    createLabel(excelSheet);
 		    lines=excelSheet.getRows();
-		    createContent(excelSheet,lines);
+		    createContent(excelSheet,name, address, phone, note,lines);
 		    workbook.write();
 		    workbook.close();
 		}
@@ -116,17 +118,17 @@ public void setOutputFile(String inputFile) {
 
     }
 
-    private void createContent(WritableSheet sheet, int lines) throws WriteException,
+    private void createContent(WritableSheet sheet, JTextField name,JTextField address,JTextField phone,JTextField note,  int lines) throws WriteException,
             RowsExceededException {
         Gui g = new Gui();
         // Them ho va ten
-    	addLabel(sheet, 0, lines, g.add_customer_name.getText());
+    	addLabel(sheet, 0, lines, name.getText());
         // Them dia chi
-    	addLabel(sheet, 1, lines, g.add_customer_address.getText());
+    	addLabel(sheet, 1, lines, address.getText());
     	// Them so dien thoai
-    	addLabel(sheet, 2, lines, g.add_customer_phoneNumber.getText());
+    	addLabel(sheet, 2, lines, phone.getText());
     	// Them luu y
-    	addLabel(sheet, 3, lines, g.add_customer_note.getText());
+    	addLabel(sheet, 3, lines, note.getText());
     }
 
     private void addCaption(WritableSheet sheet, int column, int row, String s)
@@ -143,10 +145,10 @@ public void setOutputFile(String inputFile) {
         sheet.addCell(label);
     }
 
-    public static void main(String[] args) throws WriteException, IOException {
+    public void main(JTextField name,JTextField address,JTextField phone,JTextField note) throws WriteException, IOException {
     	add_khachhang test = new add_khachhang();
-        test.setOutputFile(System.getProperty("user.dir")+"/src/lars.xls");
-        test.write();
+        test.setOutputFile(System.getProperty("user.dir")+"/src/khachhang.xls");
+        test.write(name, address, phone, note);
         System.out
                 .println("Please check the result file under [current directory]/lars.xls ");
     }
