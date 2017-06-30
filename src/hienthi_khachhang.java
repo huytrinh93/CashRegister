@@ -40,7 +40,10 @@ public class hienthi_khachhang {
 	            
 	            if (cell.getContents().equals(tmp))
 	            {
-	            	field.setText("Ten: "+ sheet.getCell(0, j).getContents() + "\nDia chi: "+ sheet.getCell(1, j).getContents()+"\nDien thoai: "+ sheet.getCell(2, j).getContents()+"\nLuu y: "+ sheet.getCell(3, j).getContents());
+	            	field.setText("Ten: "+ sheet.getCell(0, j).getContents() + "\nDia chi: "+ sheet.getCell(1, j).getContents()+"\nDien thoai: "
+	            					+ sheet.getCell(2, j).getContents()+"\nLuu y: "+ sheet.getCell(3, j).getContents() 
+	            					+"\nDich vu: " + sheet.getCell(4,j).getContents() + "\nNgày đến gần nhất: " + sheet.getCell(5, j).getContents()
+	            					+ "\nTổng tiền: " + sheet.getCell(6, j).getContents());
 	            }
 	        }
         } catch (BiffException e) {
