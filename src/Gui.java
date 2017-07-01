@@ -168,7 +168,7 @@ public class Gui extends JFrame {
 		lblTLChia.setBounds(22, 569, 134, 16);
 		panel.add(lblTLChia);
 		
-		JLabel lblNewLabel = new JLabel("T\u1EF7 l\u1EC7 cast");
+		JLabel lblNewLabel = new JLabel("T\u1EF7 l\u1EC7 cash");
 		lblNewLabel.setBounds(28, 606, 66, 16);
 		panel.add(lblNewLabel);
 		
@@ -294,7 +294,7 @@ public class Gui extends JFrame {
 		lblTurn.setBounds(128, 19, 56, 16);
 		panel_1.add(lblTurn);
 		
-		JLabel lblCast = new JLabel("Cast");
+		JLabel lblCast = new JLabel("Cash");
 		lblCast.setBounds(196, 19, 56, 16);
 		panel_1.add(lblCast);
 		
