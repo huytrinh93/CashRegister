@@ -24,8 +24,12 @@ import javax.swing.UIManager;
 import java.awt.Font;
 import javax.swing.JTextPane;
 import javax.swing.JScrollBar;
+import javax.swing.DefaultListModel;
 import javax.swing.DropMode;
 import javax.swing.JTextArea;
+import javax.swing.JList;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class Gui extends JFrame {
 
@@ -69,10 +73,9 @@ public class Gui extends JFrame {
 	public JTextField txtTnNhnVin;
 	public JTextField txtTurn;
 	public JTextField txtTnNhnVin_1;
-	public JTextField txtTn;
-	public JTextField textField_36;
-	public JTextField textField_37;
-	public JTextField textField_38;
+	public JTextField nhanvien_name;
+	public JTextField nhanvien_money_ratio;
+	public JTextField nhanvien_ratio_cash;
 	public JTextField txtNgy;
 	public JTextField txtThng;
 	public JTextField txtNm;
@@ -137,28 +140,40 @@ public class Gui extends JFrame {
 		lblDanhSchNhn.setBounds(12, 13, 144, 28);
 		panel.add(lblDanhSchNhn);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		textPane.setBounds(12, 68, 304, 397);
-		panel.add(textPane);
-		
 		JLabel lblThmNhnVin = new JLabel("th\u00EAm nh\u00E2n vi\u00EAn");
 		lblThmNhnVin.setBounds(22, 490, 105, 16);
 		panel.add(lblThmNhnVin);
 		
-		txtTn = new JTextField();
-		txtTn.setBounds(134, 530, 220, 22);
-		panel.add(txtTn);
-		txtTn.setColumns(10);
+		nhanvien_name = new JTextField();
+		nhanvien_name.setBounds(134, 530, 220, 22);
+		panel.add(nhanvien_name);
+		nhanvien_name.setColumns(10);
 		
 		JButton btnThm = new JButton("Th\u00EAm");
+		btnThm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+					add_nhanvien them_nhanvien = new add_nhanvien();
+					try {
+						them_nhanvien.main(nhanvien_name,nhanvien_money_ratio,nhanvien_ratio_cash);
+						nhanvien_name.setText("");
+						nhanvien_money_ratio.setText("");
+						nhanvien_ratio_cash.setText("");
+					} catch (WriteException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+			}
+		});
 		btnThm.setBounds(134, 638, 97, 25);
 		panel.add(btnThm);
 		
-		textField_36 = new JTextField();
-		textField_36.setBounds(134, 566, 220, 22);
-		panel.add(textField_36);
-		textField_36.setColumns(10);
+		nhanvien_money_ratio = new JTextField();
+		nhanvien_money_ratio.setBounds(134, 566, 220, 22);
+		panel.add(nhanvien_money_ratio);
+		nhanvien_money_ratio.setColumns(10);
 		
 		JLabel lblTn = new JLabel("T\u00EAn");
 		lblTn.setBounds(28, 535, 56, 16);
@@ -172,21 +187,16 @@ public class Gui extends JFrame {
 		lblNewLabel.setBounds(28, 606, 66, 16);
 		panel.add(lblNewLabel);
 		
-		textField_37 = new JTextField();
-		textField_37.setBounds(134, 603, 220, 22);
-		panel.add(textField_37);
-		textField_37.setColumns(10);
+		nhanvien_ratio_cash = new JTextField();
+		nhanvien_ratio_cash.setBounds(134, 603, 220, 22);
+		panel.add(nhanvien_ratio_cash);
+		nhanvien_ratio_cash.setColumns(10);
 		
 		JLabel lblHinThThu = new JLabel("Hi\u1EC3n th\u1ECB thu nh\u1EADp ti\u1EC7m");
 		lblHinThThu.setBackground(Color.WHITE);
 		lblHinThThu.setForeground(Color.BLACK);
 		lblHinThThu.setBounds(527, 19, 144, 22);
 		panel.add(lblHinThThu);
-		
-		textField_38 = new JTextField();
-		textField_38.setBounds(12, 68, 304, 397);
-		panel.add(textField_38);
-		textField_38.setColumns(10);
 		
 		JLabel lblTNgy = new JLabel("t\u1EEB ng\u00E0y");
 		lblTNgy.setBounds(410, 70, 56, 16);
@@ -281,6 +291,23 @@ public class Gui extends JFrame {
 		JLabel label_30 = new JLabel("$");
 		label_30.setBounds(684, 514, 14, 16);
 		panel.add(label_30);
+		
+		JList<String> showlist_employee = new JList<>();
+		
+		hienthi_nhanvien hienthi_nhanvien = new hienthi_nhanvien();
+				
+		DefaultListModel<String> listModel;
+		try {
+			listModel = hienthi_nhanvien.main();
+			showlist_employee.setModel(listModel);
+			
+		} catch (IOException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+		
+		showlist_employee.setBounds(40, 83, 314, 358);
+		panel.add(showlist_employee);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Nh\u00E2n Vi\u00EAn", null, panel_1, null);
