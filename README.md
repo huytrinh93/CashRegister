@@ -9,3 +9,4 @@ Update:
 >6/27/2017 - dang nhap, khach hang, nhan vien, quan ly.
 >6/28/2017 - append khach hang da xong.
 >6/30/2017 - quan ly 1/2
+>7/5/2018  - quan ly need lots of check
