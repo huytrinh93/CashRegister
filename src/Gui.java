@@ -28,8 +28,12 @@ import javax.swing.DefaultListModel;
 import javax.swing.DropMode;
 import javax.swing.JTextArea;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Gui extends JFrame {
 
@@ -72,7 +76,7 @@ public class Gui extends JFrame {
 	public JTextField textField_35;
 	public JTextField txtTnNhnVin;
 	public JTextField txtTurn;
-	public JTextField txtTnNhnVin_1;
+	public JTextField show_employee_name;
 	public JTextField nhanvien_name;
 	public JTextField nhanvien_money_ratio;
 	public JTextField nhanvien_ratio_cash;
@@ -92,7 +96,6 @@ public class Gui extends JFrame {
 	public JTextField add_customer_address;
 	public JTextField add_customer_phoneNumber;
 	public JTextField add_customer_note;
-	public JTextField textField_53;
 	public JTextField textField_54;
 	public JTextField textField_55;
 	public JTextField textField_56;
@@ -149,26 +152,6 @@ public class Gui extends JFrame {
 		panel.add(nhanvien_name);
 		nhanvien_name.setColumns(10);
 		
-		JButton btnThm = new JButton("Th\u00EAm");
-		btnThm.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-					add_nhanvien them_nhanvien = new add_nhanvien();
-					try {
-						them_nhanvien.main(nhanvien_name,nhanvien_money_ratio,nhanvien_ratio_cash);
-						nhanvien_name.setText("");
-						nhanvien_money_ratio.setText("");
-						nhanvien_ratio_cash.setText("");
-					} catch (WriteException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					} catch (IOException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
-			}
-		});
-		btnThm.setBounds(134, 638, 97, 25);
-		panel.add(btnThm);
 		
 		nhanvien_money_ratio = new JTextField();
 		nhanvien_money_ratio.setBounds(134, 566, 220, 22);
@@ -308,6 +291,60 @@ public class Gui extends JFrame {
 		
 		showlist_employee.setBounds(40, 83, 314, 358);
 		panel.add(showlist_employee);
+		
+		JButton btnThm = new JButton("Th\u00EAm");
+		btnThm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+					add_nhanvien them_nhanvien = new add_nhanvien();
+					try {
+						them_nhanvien.main(nhanvien_name,nhanvien_money_ratio,nhanvien_ratio_cash);
+						DefaultListModel<String> listModel = hienthi_nhanvien.main();
+						showlist_employee.setModel(listModel);
+						nhanvien_name.setText("");
+						nhanvien_money_ratio.setText("");
+						nhanvien_ratio_cash.setText("");
+					} catch (WriteException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+			}
+		});
+		btnThm.setBounds(144, 636, 97, 25);
+		panel.add(btnThm);
+		
+		
+		JButton btnXoa = new JButton("X\u00F3a");
+		btnXoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+					delete_nhanvien xoa_nhanvien = new delete_nhanvien();
+					try {
+						if(showlist_employee.isSelectionEmpty())
+						{
+							JOptionPane.showMessageDialog(null, 
+									  "Cần chọn tên nhân viên trong mục",
+		                              "ALERT MESSAGE", 
+		                              JOptionPane.WARNING_MESSAGE);
+					    }
+						else
+						{
+							xoa_nhanvien.main(showlist_employee.getSelectedIndex());
+							DefaultListModel<String> listModel = hienthi_nhanvien.main();
+							showlist_employee.setModel(listModel);
+						}
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					} catch (WriteException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+			}
+		});
+		btnXoa.setBounds(144, 452, 97, 25);
+		panel.add(btnXoa);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Nh\u00E2n Vi\u00EAn", null, panel_1, null);
@@ -650,20 +687,37 @@ public class Gui extends JFrame {
 		lblHinThThng.setBounds(548, 216, 170, 16);
 		panel_1.add(lblHinThThng);
 		
-		txtTnNhnVin_1 = new JTextField();
-		txtTnNhnVin_1.setText("T\u00EAn nh\u00E2n vi\u00EAn");
-		txtTnNhnVin_1.setBounds(548, 258, 116, 22);
-		panel_1.add(txtTnNhnVin_1);
-		txtTnNhnVin_1.setColumns(10);
+		show_employee_name = new JTextField();
+		show_employee_name.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				show_employee_name.setText("");
+			}
+		});
+		show_employee_name.setText("T\u00EAn nh\u00E2n vi\u00EAn");
+		show_employee_name.setBounds(548, 258, 116, 22);
+		panel_1.add(show_employee_name);
+		show_employee_name.setColumns(10);
+		
+		JTextArea hienthi_thongtin_nhanvien = new JTextArea();
+		hienthi_thongtin_nhanvien.setBounds(548, 297, 310, 344);
+		panel_1.add(hienthi_thongtin_nhanvien);
 		
 		JButton btnHinTh = new JButton("Hi\u1EC3n th\u1ECB");
+		btnHinTh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					hienthi_thongtin_nhanvien.setText("");
+					hienthi_nhanvien.read_all(show_employee_name.getText(),hienthi_thongtin_nhanvien);
+					show_employee_name.setText("");
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+			}
+		});
 		btnHinTh.setBounds(758, 257, 97, 25);
 		panel_1.add(btnHinTh);
-		
-		textField_53 = new JTextField();
-		textField_53.setBounds(548, 312, 324, 329);
-		panel_1.add(textField_53);
-		textField_53.setColumns(10);
 		
 		JLabel label_26 = new JLabel("nh\u00E2n vi\u00EAn xyz");
 		label_26.setBounds(12, 538, 84, 16);
