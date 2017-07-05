@@ -17,21 +17,13 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
-import java.awt.Component;
+import java.awt.GridLayout;
 
-import javax.swing.JPasswordField;
-import javax.swing.UIManager;
-import java.awt.Font;
-import javax.swing.JTextPane;
-import javax.swing.JScrollBar;
 import javax.swing.DefaultListModel;
-import javax.swing.DropMode;
 import javax.swing.JTextArea;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -103,6 +95,12 @@ public class Gui extends JFrame {
 	public JTextField textField_58;
 	public JTextField textField_59;
 	public JTextField textField_60;
+	
+	public JTextField tinh_tien;
+	private double result = 0;
+	private String lastCommand ="=";
+	private boolean start = true;
+	private JButton display;
 
 	/**
 	 * Launch the application.
@@ -928,16 +926,118 @@ public class Gui extends JFrame {
 
 			}
 		});
+		
 		btnThmVo.setBounds(713, 378, 97, 25);
 		panel_2.add(btnThmVo);
 		
-	/*
+	
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Tinh tien", null, panel_3, null);
-		panel_3.setLayout(null);
+		//panel_3.setLayout(null);
+		panel_3.setLayout(new GridLayout(5, 4));
+	      // add the display
 		
-		calculator calculator = new calculator();
-		panel_3.add(calculator);
-	*/
+		tinh_tien = new JTextField();
+		tinh_tien.setEditable(false);
+		tinh_tien.setColumns(10);
+		tinh_tien.setBounds(150, 584, 126, 22);
+		panel_3.add(tinh_tien);
+
+		 display = new JButton("0");
+	     display.setEnabled(true);
+	     //getContentPane().add(display, BorderLayout.NORTH);
+         ActionListener insert = new InsertAction();
+	     ActionListener command = new CommandAction();
+
+	     // add the buttons in a 4 x 4 grid
+	     addButton("7", insert, panel_3);
+	     addButton("8", insert, panel_3);
+	     addButton("9", insert, panel_3);
+	     addButton("/", command, panel_3);
+    
+	     addButton("4", insert, panel_3);
+	     addButton("5", insert, panel_3);
+	     addButton("6", insert, panel_3);
+	     addButton("*", command, panel_3);
+
+	     addButton("1", insert, panel_3);
+	     addButton("2", insert, panel_3);
+	     addButton("3", insert, panel_3);
+	     addButton("-", command, panel_3);
+
+	     addButton("0", insert, panel_3);
+	     addButton(".", insert, panel_3);
+	     addButton("=", command, panel_3);
+	     addButton("+", command, panel_3);
+
+	     //add(panel_3, BorderLayout.CENTER);
 	}
+	   
+
+	   /**
+	    * Adds a button to the center panel.
+	    * @param label the button label
+	    * @param listener the button listener
+	    */
+	   private void addButton(String label, ActionListener listener,JPanel panel)
+	   {
+	      JButton button = new JButton(label);
+	      button.addActionListener(listener);
+	      panel.add(button);
+	   }
+
+	   /**
+	    * This action inserts the button action string to the end of the display text.
+	    */
+	   private class InsertAction implements ActionListener
+	   {
+	      public void actionPerformed(ActionEvent event)
+	      {
+	         String input = event.getActionCommand();
+	         if (start)
+	         {
+	        	tinh_tien.setText("");
+	            start = false;
+	         }
+	         tinh_tien.setText(tinh_tien.getText() + input);
+	      }
+	   }
+
+	   /**
+	    * This action executes the command that the button action string denotes.
+	    */
+	   private class CommandAction implements ActionListener
+	   {
+	      public void actionPerformed(ActionEvent event)
+	      {
+	         String command = event.getActionCommand();
+
+	         if (start)
+	         {
+	            if (command.equals("-"))
+	            {
+	               tinh_tien.setText(command);
+	               start = false;
+	            }
+	            else lastCommand = command;
+	         }
+	         else
+	         {
+	            calculate(Double.parseDouble(tinh_tien.getText()));
+	            lastCommand = command;
+	            start = true;
+	         }
+	      }
+	   }
+	   
+	   public void calculate(double x)
+	   {
+	      if (lastCommand.equals("+")) result += x;
+	      else if (lastCommand.equals("-")) result -= x;
+	      else if (lastCommand.equals("*")) result *= x;
+	      else if (lastCommand.equals("/")) result /= x;
+	      else if (lastCommand.equals("=")) result = x;
+	      tinh_tien.setText("" + result);
+	   }
+	   
 }
