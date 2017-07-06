@@ -12,9 +12,12 @@ import jxl.write.WriteException;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -30,7 +33,7 @@ import java.awt.event.MouseEvent;
 public class Gui extends JFrame {
 
 	private JPanel contentPane;
-	public JTextField textField;
+	public JFormattedTextField turn1_cast;
 	public JTextField textField_1;
 	public JTextField textField_2;
 	public JTextField textField_3;
@@ -66,8 +69,8 @@ public class Gui extends JFrame {
 	public JTextField textField_33;
 	public JTextField textField_34;
 	public JTextField textField_35;
-	public JTextField txtTnNhnVin;
-	public JTextField txtTurn;
+	public JTextField ten;
+	public JTextField turn;
 	public JTextField show_employee_name;
 	public JTextField nhanvien_name;
 	public JTextField nhanvien_money_ratio;
@@ -368,106 +371,125 @@ public class Gui extends JFrame {
 		lblTip.setBounds(400, 19, 56, 16);
 		panel_1.add(lblTip);
 		
-		JLabel lblNhnVinXyz = new JLabel("nh\u00E2n vi\u00EAn xyz");
-		lblNhnVinXyz.setBounds(12, 54, 84, 16);
-		panel_1.add(lblNhnVinXyz);
+		JLabel nhanvien_1 = new JLabel("nh\u00E2n vi\u00EAn xyz");
+		nhanvien_1.setBounds(12, 54, 84, 16);
+		panel_1.add(nhanvien_1);
 		
-		JLabel label = new JLabel("nh\u00E2n vi\u00EAn xyz");
-		label.setBounds(12, 94, 84, 16);
-		panel_1.add(label);
+		JLabel nhanvien_2 = new JLabel("nh\u00E2n vi\u00EAn xyz");
+		nhanvien_2.setBounds(12, 94, 84, 16);
+		panel_1.add(nhanvien_2);
 		
-		JLabel label_1 = new JLabel("nh\u00E2n vi\u00EAn xyz");
-		label_1.setBounds(12, 134, 84, 16);
-		panel_1.add(label_1);
+		JLabel nhanvien_3 = new JLabel("nh\u00E2n vi\u00EAn xyz");
+		nhanvien_3.setBounds(12, 134, 84, 16);
+		panel_1.add(nhanvien_3);
 		
-		JLabel label_2 = new JLabel("nh\u00E2n vi\u00EAn xyz");
-		label_2.setBounds(12, 174, 84, 16);
-		panel_1.add(label_2);
+		JLabel nhanvien_4 = new JLabel("nh\u00E2n vi\u00EAn xyz");
+		nhanvien_4.setBounds(12, 174, 84, 16);
+		panel_1.add(nhanvien_4);
 		
-		JLabel label_3 = new JLabel("nh\u00E2n vi\u00EAn xyz");
-		label_3.setBounds(12, 216, 84, 16);
-		panel_1.add(label_3);
+		JLabel nhanvien_5 = new JLabel("nh\u00E2n vi\u00EAn xyz");
+		nhanvien_5.setBounds(12, 216, 84, 16);
+		panel_1.add(nhanvien_5);
 		
-		JLabel label_4 = new JLabel("nh\u00E2n vi\u00EAn xyz");
-		label_4.setBounds(12, 261, 84, 16);
-		panel_1.add(label_4);
+		JLabel nhanvien_6 = new JLabel("nh\u00E2n vi\u00EAn xyz");
+		nhanvien_6.setBounds(12, 261, 84, 16);
+		panel_1.add(nhanvien_6);
 		
-		JLabel label_5 = new JLabel("nh\u00E2n vi\u00EAn xyz");
-		label_5.setBounds(12, 300, 84, 16);
-		panel_1.add(label_5);
+		JLabel nhanvien_7 = new JLabel("nh\u00E2n vi\u00EAn xyz");
+		nhanvien_7.setBounds(12, 300, 84, 16);
+		panel_1.add(nhanvien_7);
 		
-		JLabel label_6 = new JLabel("nh\u00E2n vi\u00EAn xyz");
-		label_6.setBounds(12, 337, 84, 16);
-		panel_1.add(label_6);
+		JLabel nhanvien_8 = new JLabel("nh\u00E2n vi\u00EAn xyz");
+		nhanvien_8.setBounds(12, 337, 84, 16);
+		panel_1.add(nhanvien_8);
 		
-		JLabel label_7 = new JLabel("nh\u00E2n vi\u00EAn xyz");
-		label_7.setBounds(12, 377, 84, 16);
-		panel_1.add(label_7);
+		JLabel nhanvien_9 = new JLabel("nh\u00E2n vi\u00EAn xyz");
+		nhanvien_9.setBounds(12, 377, 84, 16);
+		panel_1.add(nhanvien_9);
 		
-		JLabel label_8 = new JLabel("nh\u00E2n vi\u00EAn xyz");
-		label_8.setBounds(12, 419, 84, 16);
-		panel_1.add(label_8);
+		JLabel nhanvien_10 = new JLabel("nh\u00E2n vi\u00EAn xyz");
+		nhanvien_10.setBounds(12, 419, 84, 16);
+		panel_1.add(nhanvien_10);
 		
-		JLabel label_9 = new JLabel("nh\u00E2n vi\u00EAn xyz");
-		label_9.setBounds(12, 460, 84, 16);
-		panel_1.add(label_9);
+		JLabel nhanvien_11 = new JLabel("nh\u00E2n vi\u00EAn xyz");
+		nhanvien_11.setBounds(12, 460, 84, 16);
+		panel_1.add(nhanvien_11);
 		
-		JLabel label_10 = new JLabel("nh\u00E2n vi\u00EAn xyz");
-		label_10.setBounds(12, 503, 84, 16);
-		panel_1.add(label_10);
+		JLabel nhanvien_12 = new JLabel("nh\u00E2n vi\u00EAn xyz");
+		nhanvien_12.setBounds(12, 503, 84, 16);
+		panel_1.add(nhanvien_12);
 		
-		JLabel label_11 = new JLabel("Turn");
-		label_11.setBounds(128, 54, 56, 16);
-		panel_1.add(label_11);
+		JLabel nhanvien_13 = new JLabel("nh\u00E2n vi\u00EAn xyz");
+		nhanvien_13.setBounds(12, 538, 84, 16);
+		panel_1.add(nhanvien_13);
 		
-		JLabel label_12 = new JLabel("Turn");
-		label_12.setBounds(128, 94, 56, 16);
-		panel_1.add(label_12);
+		JLabel nhanvien_14 = new JLabel("nh\u00E2n vi\u00EAn xyz");
+		nhanvien_14.setBounds(12, 579, 84, 16);
+		panel_1.add(nhanvien_14);
 		
-		JLabel label_13 = new JLabel("Turn");
-		label_13.setBounds(128, 134, 56, 16);
-		panel_1.add(label_13);
+		JLabel turn_13 = new JLabel("Turn");
+		turn_13.setBounds(128, 538, 56, 16);
+		panel_1.add(turn_13);
 		
-		JLabel label_14 = new JLabel("Turn");
-		label_14.setBounds(128, 174, 56, 16);
-		panel_1.add(label_14);
+		JLabel turn_14 = new JLabel("Turn");
+		turn_14.setBounds(128, 579, 56, 16);
+		panel_1.add(turn_14);
 		
-		JLabel label_15 = new JLabel("Turn");
-		label_15.setBounds(128, 216, 56, 16);
-		panel_1.add(label_15);
+		JLabel turn_1 = new JLabel("Turn");
+		turn_1.setBounds(128, 54, 56, 16);
+		panel_1.add(turn_1);
 		
-		JLabel label_16 = new JLabel("Turn");
-		label_16.setBounds(128, 261, 56, 16);
-		panel_1.add(label_16);
+		JLabel turn_2 = new JLabel("Turn");
+		turn_2.setBounds(128, 94, 56, 16);
+		panel_1.add(turn_2);
 		
-		JLabel label_17 = new JLabel("Turn");
-		label_17.setBounds(128, 300, 56, 16);
-		panel_1.add(label_17);
+		JLabel turn_3 = new JLabel("Turn");
+		turn_3.setBounds(128, 134, 56, 16);
+		panel_1.add(turn_3);
 		
-		JLabel label_18 = new JLabel("Turn");
-		label_18.setBounds(128, 337, 56, 16);
-		panel_1.add(label_18);
+		JLabel turn_4 = new JLabel("Turn");
+		turn_4.setBounds(128, 174, 56, 16);
+		panel_1.add(turn_4);
 		
-		JLabel label_19 = new JLabel("Turn");
-		label_19.setBounds(128, 377, 56, 16);
-		panel_1.add(label_19);
+		JLabel turn_5 = new JLabel("Turn");
+		turn_5.setBounds(128, 216, 56, 16);
+		panel_1.add(turn_5);
 		
-		JLabel label_20 = new JLabel("Turn");
-		label_20.setBounds(128, 419, 56, 16);
-		panel_1.add(label_20);
+		JLabel turn_6 = new JLabel("Turn");
+		turn_6.setBounds(128, 261, 56, 16);
+		panel_1.add(turn_6);
 		
-		JLabel label_21 = new JLabel("Turn");
-		label_21.setBounds(128, 460, 56, 16);
-		panel_1.add(label_21);
+		JLabel turn_7 = new JLabel("Turn");
+		turn_7.setBounds(128, 300, 56, 16);
+		panel_1.add(turn_7);
 		
-		JLabel label_22 = new JLabel("Turn");
-		label_22.setBounds(128, 503, 56, 16);
-		panel_1.add(label_22);
+		JLabel turn_8 = new JLabel("Turn");
+		turn_8.setBounds(128, 337, 56, 16);
+		panel_1.add(turn_8);
 		
-		textField = new JTextField();
-		textField.setBounds(196, 51, 74, 22);
-		panel_1.add(textField);
-		textField.setColumns(10);
+		JLabel turn_9 = new JLabel("Turn");
+		turn_9.setBounds(128, 377, 56, 16);
+		panel_1.add(turn_9);
+		
+		JLabel turn_10 = new JLabel("Turn");
+		turn_10.setBounds(128, 419, 56, 16);
+		panel_1.add(turn_10);
+		
+		JLabel turn_11 = new JLabel("Turn");
+		turn_11.setBounds(128, 460, 56, 16);
+		panel_1.add(turn_11);
+		
+		JLabel turn_12 = new JLabel("Turn");
+		turn_12.setBounds(128, 503, 56, 16);
+		panel_1.add(turn_12);
+		
+		double a = 0;
+		turn1_cast = new JFormattedTextField();
+		turn1_cast.setValue(new Double(a));
+		turn1_cast.setBounds(196, 51, 74, 22);
+		panel_1.add(turn1_cast);
+		turn1_cast.setColumns(10);
+		
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
@@ -649,12 +671,181 @@ public class Gui extends JFrame {
 		panel_1.add(btnAdd);
 		
 		JButton btnRandomTurn = new JButton("Random ");
+		btnRandomTurn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ArrayList<Integer> numbers = new ArrayList<Integer>();   
+				Random randomGenerator = new Random();
+				
+				ArrayList<String> names = new ArrayList<String>();
+				try {
+					hienthi_nhanvien.get_name(names);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				while (numbers.size() < names.size()) {
+
+				    int random = randomGenerator .nextInt(names.size()) + 1;
+				    if (!numbers.contains(random)) {
+				        numbers.add(random);
+				    }
+				}
+			for(int i = 0; i< names.size(); i++){
+				switch(numbers.get(i)){
+				case 1: 	nhanvien_1.setText(names.get(i));
+							turn_1.setText("0");
+							break;
+							
+				case 2:	nhanvien_2.setText(names.get(i));
+							turn_2.setText("0");
+							break;	
+			
+				case 3:	nhanvien_3.setText(names.get(i));
+							turn_3.setText("0");
+							break;
+							
+				case 4:	nhanvien_4.setText(names.get(i));
+							turn_4.setText("0");
+							break;	
+							
+				case 5:	nhanvien_5.setText(names.get(i));
+							turn_5.setText("0");
+							break;	
+				
+				case 6:	nhanvien_6.setText(names.get(i));
+							turn_6.setText("0");
+							break;
+				
+				case 7:	nhanvien_7.setText(names.get(i));
+							turn_7.setText("0");
+							break;	
+				
+				case 8:	nhanvien_8.setText(names.get(i));
+							turn_8.setText("0");
+							break;	
+				
+				case 9:	nhanvien_9.setText(names.get(i));
+							turn_9.setText("0");
+							break;	
+				
+				case 10:	nhanvien_10.setText(names.get(i));
+							turn_10.setText("0");
+							break;	
+				
+				case 11:	nhanvien_11.setText(names.get(i));
+							turn_11.setText("0");
+							break;	
+				
+				case 12:	nhanvien_12.setText(names.get(i));
+							turn_12.setText("0");
+							break;	
+				
+				case 13:	nhanvien_13.setText(names.get(i));
+							turn_13.setText("0");
+							break;	
+				
+				case 14:	nhanvien_14.setText(names.get(i));
+							turn_14.setText("0");
+							break;	
+				
+				default: JOptionPane.showMessageDialog(null, 
+						  "nhập đúng turn từ 1-14",
+                          "ALERT MESSAGE", 
+                          JOptionPane.WARNING_MESSAGE);
+							break;
+				
+			}
+			}
+			}
+		});
 		btnRandomTurn.setBounds(729, 50, 126, 25);
 		panel_1.add(btnRandomTurn);
 		
 		JButton btnNewButton = new JButton("Chia turn");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+		
+				try {
+					if(hienthi_nhanvien.check_name(ten.getText()) == true){
+						switch(turn.getText()){
+						case "1": 	nhanvien_1.setText(ten.getText());
+									turn_1.setText("0");
+									break;
+									
+						case "2":	nhanvien_2.setText(ten.getText());
+									turn_2.setText("0");
+									break;	
+					
+						case "3":	nhanvien_3.setText(ten.getText());
+									turn_3.setText("0");
+									break;
+									
+						case "4":	nhanvien_4.setText(ten.getText());
+									turn_4.setText("0");
+									break;	
+									
+						case "5":	nhanvien_5.setText(ten.getText());
+									turn_5.setText("0");
+									break;	
+						
+						case "6":	nhanvien_6.setText(ten.getText());
+									turn_6.setText("0");
+									break;
+						
+						case "7":	nhanvien_7.setText(ten.getText());
+									turn_7.setText("0");
+									break;	
+						
+						case "8":	nhanvien_8.setText(ten.getText());
+									turn_8.setText("0");
+									break;	
+						
+						case "9":	nhanvien_9.setText(ten.getText());
+									turn_9.setText("0");
+									break;	
+						
+						case "10":	nhanvien_10.setText(ten.getText());
+									turn_10.setText("0");
+									break;	
+						
+						case "11":	nhanvien_11.setText(ten.getText());
+									turn_11.setText("0");
+									break;	
+						
+						case "12":	nhanvien_12.setText(ten.getText());
+									turn_12.setText("0");
+									break;	
+						
+						case "13":	nhanvien_13.setText(ten.getText());
+									turn_13.setText("0");
+									break;	
+						
+						case "14":	nhanvien_14.setText(ten.getText());
+									turn_14.setText("0");
+									break;	
+						
+						default: JOptionPane.showMessageDialog(null, 
+								  "nhập đúng turn từ 1-14",
+		                          "ALERT MESSAGE", 
+		                          JOptionPane.WARNING_MESSAGE);
+									break;
+						
+						}
+						}
+					else
+					{
+						JOptionPane.showMessageDialog(null, 
+								  "Tên không chính xac",
+		                          "ALERT MESSAGE", 
+		                          JOptionPane.WARNING_MESSAGE);
+									
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
 			}
 		});
 		btnNewButton.setBounds(729, 152, 126, 25);
@@ -669,17 +860,30 @@ public class Gui extends JFrame {
 		lblChiaTurnTay.setBounds(548, 91, 84, 22);
 		panel_1.add(lblChiaTurnTay);
 		
-		txtTnNhnVin = new JTextField();
-		txtTnNhnVin.setText("T\u00EAn nh\u00E2n vi\u00EAn");
-		txtTnNhnVin.setBounds(548, 131, 116, 22);
-		panel_1.add(txtTnNhnVin);
-		txtTnNhnVin.setColumns(10);
+		ten = new JTextField();
+		ten.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				ten.setText("");
+			}
+		});
 		
-		txtTurn = new JTextField();
-		txtTurn.setText("Turn");
-		txtTurn.setBounds(548, 171, 116, 22);
-		panel_1.add(txtTurn);
-		txtTurn.setColumns(10);
+		ten.setText("T\u00EAn nh\u00E2n vi\u00EAn");
+		ten.setBounds(548, 131, 116, 22);
+		panel_1.add(ten);
+		ten.setColumns(10);
+	
+		turn = new JTextField();
+		turn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				turn.setText("");
+			}
+		});
+		turn.setText("Turn");
+		turn.setBounds(548, 171, 116, 22);
+		panel_1.add(turn);
+		turn.setColumns(10);
 		
 		JLabel lblHinThThng = new JLabel("Hi\u1EC3n th\u1ECB th\u00F4ng tin nh\u00E2n vi\u00EAn");
 		lblHinThThng.setBounds(548, 216, 170, 16);
@@ -717,21 +921,7 @@ public class Gui extends JFrame {
 		btnHinTh.setBounds(758, 257, 97, 25);
 		panel_1.add(btnHinTh);
 		
-		JLabel label_26 = new JLabel("nh\u00E2n vi\u00EAn xyz");
-		label_26.setBounds(12, 538, 84, 16);
-		panel_1.add(label_26);
 		
-		JLabel label_27 = new JLabel("nh\u00E2n vi\u00EAn xyz");
-		label_27.setBounds(12, 579, 84, 16);
-		panel_1.add(label_27);
-		
-		JLabel label_28 = new JLabel("Turn");
-		label_28.setBounds(128, 538, 56, 16);
-		panel_1.add(label_28);
-		
-		JLabel label_29 = new JLabel("Turn");
-		label_29.setBounds(128, 579, 56, 16);
-		panel_1.add(label_29);
 		
 		textField_54 = new JTextField();
 		textField_54.setColumns(10);
