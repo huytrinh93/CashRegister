@@ -29,6 +29,10 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JSeparator;
 
 public class Gui extends JFrame {
 
@@ -133,7 +137,7 @@ public class Gui extends JFrame {
 		contentPane.setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(12, 13, 934, 696);
+		tabbedPane.setBounds(12, 27, 934, 682);
 		contentPane.add(tabbedPane);
 		
 		JPanel panel = new JPanel();
@@ -1178,8 +1182,61 @@ public class Gui extends JFrame {
 	     addButton(".", insert, panel_3);
 	     addButton("=", command, panel_3);
 	     addButton("+", command, panel_3);
+	     
+	     JMenuBar menuBar = new JMenuBar();
+	     menuBar.setBounds(12, 0, 70, 26);
+	     contentPane.add(menuBar);
+	     
+	     JMenu mnFile = new JMenu("File");
+	     menuBar.add(mnFile);
+	     
+	     JMenuItem mntmngXut = new JMenuItem("Đăng xuất");
+	     mntmngXut.addActionListener(new ActionListener() {
+	     	public void actionPerformed(ActionEvent e) {
+	     		dangnhap login = new dangnhap();
+	     		login.main(null);
+	     		dispose();
+	     		
+	     	}
+	     });
+	     mnFile.add(mntmngXut);
+	     
+	     JMenuItem mntmThot = new JMenuItem("Thoát");
+	     mntmThot.addActionListener(new ActionListener() {
+	     	public void actionPerformed(ActionEvent arg0) {
+	     		System.exit(0);
+	     	}
+	     });
+	     mnFile.add(mntmThot);
+	     
+	     JMenu mnHelp = new JMenu("Help");
+	     menuBar.add(mnHelp);
+	     
+	     JMenuItem mntmngKSoftware = new JMenuItem("Đăng ký software mới");
+	     mnHelp.add(mntmngKSoftware);
+	     
+	     JMenuItem mntmCpNht = new JMenuItem("Cập nhật");
+	     mnHelp.add(mntmCpNht);
+	     
+	     JSeparator separator = new JSeparator();
+	     mnHelp.add(separator);
+	     
+	     JMenuItem mntmGiiThiu = new JMenuItem("Giới thiệu");
+	     mntmGiiThiu.addActionListener(new ActionListener() {
+	     	public void actionPerformed(ActionEvent e) {
+	     		final JPanel panel = new JPanel();
 
-	     //add(panel_3, BorderLayout.CENTER);
+	     	    JOptionPane.showMessageDialog(panel, 
+	     	    		"Phiên bản: 0.0.1 "
+	     	    		+ "\n CopyRight © 2017"
+	     	    		+ "\n Developer: Hoàng Péo, Huy Trịnh."
+	     	    		+ "\n Sản phẩm này chưa được đăng ký",
+	     	    		"CopyRight",
+	     	        JOptionPane.INFORMATION_MESSAGE);
+	     	}
+	     });
+	     mnHelp.add(mntmGiiThiu);
+
 	}
 	   
 
@@ -1248,5 +1305,4 @@ public class Gui extends JFrame {
 	      else if (lastCommand.equals("=")) result = x;
 	      tinh_tien.setText("" + result);
 	   }
-	   
 }
