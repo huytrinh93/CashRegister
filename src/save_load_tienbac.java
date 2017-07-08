@@ -1,20 +1,21 @@
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import jxl.Cell;
-import jxl.CellType;
 import jxl.CellView;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 import jxl.format.UnderlineStyle;
 import jxl.read.biff.BiffException;
-import jxl.write.Formula;
 import jxl.write.Label;
-import jxl.write.Number;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
@@ -23,8 +24,7 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
 
-public class add_khachhang {
-
+public class save_load_tienbac {
     private WritableCellFormat timesBoldUnderline;
     private WritableCellFormat times;
     private String inputFile;
@@ -34,12 +34,38 @@ public class add_khachhang {
     public void setOutputFile(String inputFile) {
 	    this.inputFile = inputFile;
     }
+    
+    public void read_all(String tmp, JTextArea field) throws IOException  {
+    	File inputWorkbook = new File(System.getProperty("user.dir")+"/src/tienbac.xls");
+        Workbook w;
+        try {
+			w = Workbook.getWorkbook(inputWorkbook);
+		    // Get the first sheet
+		    Sheet sheet = w.getSheet(0);
+		    // Số dòng
+		    lines=sheet.getRows();
+		    // Loop over column and lines
+		    //String ten[] = new String[lines];
+		    //String diachi[] = new String[lines];
+		    //String dienthoai[] = new String[lines];
+		    //String luuy[] = new String[lines];
+		    for (int j = 1; j < lines; j++) {
+	            Cell cell = sheet.getCell(0, j);
+	            if (cell.getContents().equals(tmp))
+	            {
+	            	field.setText("Ngày giờ: "+ sheet.getCell(0, j).getContents() + "\n Tên: "+ sheet.getCell(1, j).getContents()+"\nCash: "+ sheet.getCell(2, j).getContents()
+	            			+"\nThẻ: "+ sheet.getCell(3, j).getContents()+"\nTip: "+ sheet.getCell(4, j).getContents());
+	            }
+	        }
+        } catch (BiffException e) {
+            e.printStackTrace();
+        }
+    }
 
-    public void write(JTextField name,JTextField address,JTextField phone,JTextField note) throws IOException, WriteException {
-        File file = new File(inputFile);
+    public void write(JLabel name,JTextField cash,JTextField the, JTextField tip) throws IOException, WriteException {
+        File file = new File(System.getProperty("user.dir")+"/src/tienbac.xls");
         
 		if(file.exists() && !file.isDirectory()) { 
-			System.out.println("here");
 			Workbook w;
 			try {
 				w = Workbook.getWorkbook(file);
@@ -48,18 +74,7 @@ public class add_khachhang {
 		        WritableSheet excelSheet = aCopy.getSheet(0);
 		        Sheet sh2 = aCopy.getSheet(0);
 			    lines=sh2.getRows();
-			    createContent(excelSheet,name, address, phone, note,lines);
-			    /*
-			    Gui g = new Gui();
-			    // Them ho va ten
-		    	excelSheet.addCell(new Label(0, lines, g.add_customer_name.getText()));
-		        // Them dia chi
-		    	excelSheet.addCell(new Label(1, lines, g.add_customer_address.getText()));
-		    	// Them so dien thoai
-		    	excelSheet.addCell(new Label(2, lines, g.add_customer_phoneNumber.getText()));
-		    	// Them luu y
-		    	excelSheet.addCell(new Label(3, lines, g.add_customer_note.getText()));
-		    	*/
+			    createContent(excelSheet,name, cash, the, tip ,lines);
 		        aCopy.write();
 		        aCopy.close();
 		        //w.close();
@@ -69,7 +84,6 @@ public class add_khachhang {
 		}
 		else
 		{
-			System.out.println("here1");
 			WorkbookSettings wbSettings = new WorkbookSettings();
 		    wbSettings.setLocale(new Locale("en", "EN"));
 		    WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
@@ -77,7 +91,7 @@ public class add_khachhang {
 		    WritableSheet excelSheet = workbook.getSheet(0);
 		    createLabel(excelSheet);
 		    lines=excelSheet.getRows();
-		    createContent(excelSheet,name, address, phone, note,lines);
+		    createContent(excelSheet,name, cash, the, tip,lines);
 		    workbook.write();
 		    workbook.close();
 		}
@@ -107,27 +121,26 @@ public class add_khachhang {
 
         // Write a few headers
         //JLabel name = Gui.lblHTh.getJLabel();
-        addCaption(sheet, 0, 0, "Họ và Tên");
-        addCaption(sheet, 1, 0, "Địa chỉ");
-        addCaption(sheet, 2, 0, "Số điện thoại");
-        addCaption(sheet, 3, 0, "Lưu ý");
-        addCaption(sheet, 4, 0, "Dich Vu");
-        addCaption(sheet, 5, 0, "Ngay");
-        addCaption(sheet, 6, 0, "So Tien");
-
-
+        addCaption(sheet, 0, 0, "Ngày Giờ");
+        addCaption(sheet, 1, 0, "Tên");
+        addCaption(sheet, 2, 0, "Cash");
+        addCaption(sheet, 3, 0, "Thẻ");
+        addCaption(sheet, 4, 0, "Tip");
     }
 
-    private void createContent(WritableSheet sheet, JTextField name,JTextField address,JTextField phone,JTextField note,  int lines) throws WriteException,
+    private void createContent(WritableSheet sheet, JLabel name,JTextField cash,JTextField the, JTextField tip,  int lines) throws WriteException,
             RowsExceededException {
+        // Hien thi ngay thang nam
+     	SimpleDateFormat ft = new SimpleDateFormat ("E MM/dd/yyyy 'at' hh:mm:ss a");
+     	addLabel(sheet, 0, lines, ft.format(new Date()));
         // Them ho va ten
-    	addLabel(sheet, 0, lines, name.getText());
-        // Them dia chi
-    	addLabel(sheet, 1, lines, address.getText());
-    	// Them so dien thoai
-    	addLabel(sheet, 2, lines, phone.getText());
-    	// Them luu y
-    	addLabel(sheet, 3, lines, note.getText());
+    	addLabel(sheet, 1, lines, name.getText());
+        // Them cash
+    	addLabel(sheet, 2, lines, cash.getText());
+    	// Them the
+    	addLabel(sheet, 3, lines, the.getText());
+    	// Them tip
+    	addLabel(sheet, 4, lines, tip.getText());
     }
 
     private void addCaption(WritableSheet sheet, int column, int row, String s)
@@ -143,13 +156,18 @@ public class add_khachhang {
         label = new Label(column, row, s);
         sheet.addCell(label);
     }
-
-    public void main(JTextField name,JTextField address,JTextField phone,JTextField note) throws WriteException, IOException {
-    	add_khachhang test = new add_khachhang();
-        test.setOutputFile(System.getProperty("user.dir")+"/src/khachhang.xls");
-        test.write(name, address, phone, note);
+ /*   
+    private void addNumber(WritableSheet sheet, int column, int row, Integer integer) throws WriteException, RowsExceededException {
+        Number number;
+        number = new Number(column, row, integer, times);
+        sheet.addCell(number);
+    }
+*/
+    public void main(JLabel name,JTextField cash,JTextField the,JTextField tip) throws WriteException, IOException {
+    	save_load_tienbac test = new save_load_tienbac();
+        test.setOutputFile(System.getProperty("user.dir")+"/src/tienbac.xls");
+        test.write(name, cash, the, tip);
         System.out
                 .println("Please check the result file under [current directory]/lars.xls ");
-    }
+	    }
 }
-

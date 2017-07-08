@@ -33,7 +33,7 @@ import java.awt.event.MouseEvent;
 public class Gui extends JFrame {
 
 	private JPanel contentPane;
-	public JFormattedTextField turn1_cast;
+	public JFormattedTextField turn1_cash;
 	public JTextField textField_1;
 	public JTextField textField_2;
 	public JTextField textField_3;
@@ -45,7 +45,7 @@ public class Gui extends JFrame {
 	public JTextField textField_9;
 	public JTextField textField_10;
 	public JTextField textField_11;
-	public JTextField textField_12;
+	public JTextField turn1_card;
 	public JTextField textField_13;
 	public JTextField textField_14;
 	public JTextField textField_15;
@@ -57,7 +57,7 @@ public class Gui extends JFrame {
 	public JTextField textField_21;
 	public JTextField textField_22;
 	public JTextField textField_23;
-	public JTextField textField_24;
+	public JTextField turn1_tip;
 	public JTextField textField_25;
 	public JTextField textField_26;
 	public JTextField textField_27;
@@ -484,11 +484,11 @@ public class Gui extends JFrame {
 		panel_1.add(turn_12);
 		
 		double a = 0;
-		turn1_cast = new JFormattedTextField();
-		turn1_cast.setValue(new Double(a));
-		turn1_cast.setBounds(196, 51, 74, 22);
-		panel_1.add(turn1_cast);
-		turn1_cast.setColumns(10);
+		turn1_cash = new JFormattedTextField();
+		turn1_cash.setValue(new Double(a));
+		turn1_cash.setBounds(196, 51, 74, 22);
+		panel_1.add(turn1_cash);
+		turn1_cash.setColumns(10);
 		
 		
 		textField_1 = new JTextField();
@@ -546,10 +546,10 @@ public class Gui extends JFrame {
 		textField_11.setBounds(196, 500, 74, 22);
 		panel_1.add(textField_11);
 		
-		textField_12 = new JTextField();
-		textField_12.setColumns(10);
-		textField_12.setBounds(300, 51, 74, 22);
-		panel_1.add(textField_12);
+		turn1_card = new JTextField();
+		turn1_card.setColumns(10);
+		turn1_card.setBounds(300, 51, 74, 22);
+		panel_1.add(turn1_card);
 		
 		textField_13 = new JTextField();
 		textField_13.setColumns(10);
@@ -606,10 +606,10 @@ public class Gui extends JFrame {
 		textField_23.setBounds(300, 500, 74, 22);
 		panel_1.add(textField_23);
 		
-		textField_24 = new JTextField();
-		textField_24.setColumns(10);
-		textField_24.setBounds(400, 51, 74, 22);
-		panel_1.add(textField_24);
+		turn1_tip = new JTextField();
+		turn1_tip.setColumns(10);
+		turn1_tip.setBounds(400, 51, 74, 22);
+		panel_1.add(turn1_tip);
 		
 		textField_25 = new JTextField();
 		textField_25.setColumns(10);
@@ -667,6 +667,25 @@ public class Gui extends JFrame {
 		panel_1.add(textField_35);
 		
 		JButton btnAdd = new JButton("T\u00EDnh Ti\u1EC1n");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				save_load_tienbac thuNhap = new save_load_tienbac();
+				try {
+					thuNhap.main(nhanvien_1,turn1_cash, turn1_card, turn1_tip);
+					//DefaultListModel<String> listModel = hienthi_nhanvien.main();
+					//showlist_employee.setModel(listModel);
+					//nhanvien_name.setText("");
+					//nhanvien_money_ratio.setText("");
+					//nhanvien_ratio_cash.setText("");
+				} catch (WriteException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+			}
+		});
 		btnAdd.setBounds(227, 616, 97, 25);
 		panel_1.add(btnAdd);
 		
