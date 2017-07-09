@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import jxl.Cell;
@@ -93,6 +94,13 @@ public class update_khachhang {
 			} catch (BiffException e) {
 				e.printStackTrace();
 			}
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null, 
+					"Xin hãy đóng file khachhang.xls",
+                    "ALERT MESSAGE", 
+                    JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
