@@ -24,10 +24,10 @@ public class hienthi_nhanvien {
         this.inputFile = inputFile;
     }
 
-    public DefaultListModel read() throws IOException  {
-        File inputWorkbook = new File(inputFile);
+    public DefaultListModel<String> read() throws IOException  {
+        File inputWorkbook = new File(System.getProperty("user.dir")+"/src/nhanvien.xls");
         Workbook w;
-        DefaultListModel<String> listModel = new DefaultListModel();
+        DefaultListModel<String> listModel = new DefaultListModel<String>();
         try {
 			w = Workbook.getWorkbook(inputWorkbook);
 		    // Get the first sheet

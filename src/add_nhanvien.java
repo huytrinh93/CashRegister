@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import jxl.Cell;
@@ -38,22 +39,30 @@ public class add_nhanvien {
     public void write(JTextField name,JTextField money_ratio,JTextField cash_ratio) throws IOException, WriteException {
         File file = new File(inputFile);
         
-		if(file.exists() && !file.isDirectory()) { 
-			System.out.println("here");
-			Workbook w;
-			try {
-				w = Workbook.getWorkbook(file);
-				System.out.println(w.getSheet(0).getCell(0, 0).getContents());
-				WritableWorkbook aCopy = Workbook.createWorkbook(file, w);
-		        WritableSheet excelSheet = aCopy.getSheet(0);
-		        Sheet sh2 = aCopy.getSheet(0);
-			    lines=sh2.getRows();
-			    createContent(excelSheet,name, money_ratio, cash_ratio,lines);
-		        aCopy.write();
-		        aCopy.close();
-		        //w.close();
-			} catch (BiffException e) {
-				e.printStackTrace();
+		if(file.exists() && !file.isDirectory() ) {
+			if(checkFileOpen())
+			{
+				Workbook w;
+				try {
+					w = Workbook.getWorkbook(file);
+					WritableWorkbook aCopy = Workbook.createWorkbook(file, w);
+			        WritableSheet excelSheet = aCopy.getSheet(0);
+			        Sheet sh2 = aCopy.getSheet(0);
+				    lines=sh2.getRows();
+				    createContent(excelSheet,name, money_ratio, cash_ratio,lines);
+			        aCopy.write();
+			        aCopy.close();
+			        //w.close();
+				} catch (BiffException e) {
+					e.printStackTrace();
+				}
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, 
+						"Xin hãy đóng file nhanvien.xls",
+	                    "ALERT MESSAGE", 
+	                    JOptionPane.WARNING_MESSAGE);
 			}
 		}
 		else
@@ -69,7 +78,8 @@ public class add_nhanvien {
 		    workbook.write();
 		    workbook.close();
 		}
-    }
+	}
+			
 
     private void createLabel(WritableSheet sheet)
             throws WriteException {
@@ -130,13 +140,35 @@ public class add_nhanvien {
         label = new Label(column, row, s);
         sheet.addCell(label);
     }
+    
+    
+    //  TO CHECK WHETHER A FILE IS OPENED 
+    //  OR NOT (not for .txt files)
+    private boolean checkFileOpen()
+    {
+	    //  the file we want to check
+    	boolean success = false;
+	    String fileName = inputFile;
+	    File file = new File(fileName);
+	    // try to rename the file with the same name
+	    File sameFileName = new File(fileName);
+	    
+	    if(file.renameTo(sameFileName)){
+	        // if the file is renamed
+	        System.out.println("file is closed");
+	        success=true;
+	    }else{
+	        // if the file didnt accept the renaming operation
+	        System.out.println("file is opened");
+	        
+	    }
+	    return success;
+    }
 
     public void main(JTextField name,JTextField money_ratio,JTextField cash_ratio) throws WriteException, IOException {
     	add_nhanvien test = new add_nhanvien();
         test.setOutputFile(System.getProperty("user.dir")+"/src/nhanvien.xls");
-        test.write(name, money_ratio, cash_ratio);
-        System.out
-                .println("Please check the result file under [current directory]/lars.xls ");
+    	test.write(name, money_ratio, cash_ratio);
     }
 }
 

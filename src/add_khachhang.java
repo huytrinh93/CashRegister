@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import jxl.Cell;
@@ -34,42 +35,74 @@ public class add_khachhang {
     public void setOutputFile(String inputFile) {
 	    this.inputFile = inputFile;
     }
+    
+//  TO CHECK WHETHER A FILE IS OPENED 
+    //  OR NOT (not for .txt files)
+    private boolean checkFileOpen()
+    {
+	    //  the file we want to check
+    	boolean success = false;
+	    String fileName = inputFile;
+	    File file = new File(fileName);
+	    // try to rename the file with the same name
+	    File sameFileName = new File(fileName);
+	    
+	    if(file.renameTo(sameFileName)){
+	        // if the file is renamed
+	        System.out.println("file is closed");
+	        success=true;
+	    }else{
+	        // if the file didnt accept the renaming operation
+	        System.out.println("file is opened");
+	        
+	    }
+	    return success;
+    }
 
     public void write(JTextField name,JTextField address,JTextField phone,JTextField note) throws IOException, WriteException {
         File file = new File(inputFile);
         
 		if(file.exists() && !file.isDirectory()) { 
-			System.out.println("here");
-			Workbook w;
-			try {
-				w = Workbook.getWorkbook(file);
-				System.out.println(w.getSheet(0).getCell(0, 0).getContents());
-				WritableWorkbook aCopy = Workbook.createWorkbook(file, w);
-		        WritableSheet excelSheet = aCopy.getSheet(0);
-		        Sheet sh2 = aCopy.getSheet(0);
-			    lines=sh2.getRows();
-			    createContent(excelSheet,name, address, phone, note,lines);
-			    /*
-			    Gui g = new Gui();
-			    // Them ho va ten
-		    	excelSheet.addCell(new Label(0, lines, g.add_customer_name.getText()));
-		        // Them dia chi
-		    	excelSheet.addCell(new Label(1, lines, g.add_customer_address.getText()));
-		    	// Them so dien thoai
-		    	excelSheet.addCell(new Label(2, lines, g.add_customer_phoneNumber.getText()));
-		    	// Them luu y
-		    	excelSheet.addCell(new Label(3, lines, g.add_customer_note.getText()));
-		    	*/
-		        aCopy.write();
-		        aCopy.close();
-		        //w.close();
-			} catch (BiffException e) {
-				e.printStackTrace();
+			if(checkFileOpen())
+			{
+				Workbook w;
+				try {
+					w = Workbook.getWorkbook(file);
+					System.out.println(w.getSheet(0).getCell(0, 0).getContents());
+					WritableWorkbook aCopy = Workbook.createWorkbook(file, w);
+			        WritableSheet excelSheet = aCopy.getSheet(0);
+			        Sheet sh2 = aCopy.getSheet(0);
+				    lines=sh2.getRows();
+				    createContent(excelSheet,name, address, phone, note,lines);
+				    /*
+				    Gui g = new Gui();
+				    // Them ho va ten
+			    	excelSheet.addCell(new Label(0, lines, g.add_customer_name.getText()));
+			        // Them dia chi
+			    	excelSheet.addCell(new Label(1, lines, g.add_customer_address.getText()));
+			    	// Them so dien thoai
+			    	excelSheet.addCell(new Label(2, lines, g.add_customer_phoneNumber.getText()));
+			    	// Them luu y
+			    	excelSheet.addCell(new Label(3, lines, g.add_customer_note.getText()));
+			    	*/
+			        aCopy.write();
+			        aCopy.close();
+			        //w.close();
+				} catch (BiffException e) {
+					e.printStackTrace();
+				}
 			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, 
+						"Xin hãy đóng file khachhang.xls",
+	                    "ALERT MESSAGE", 
+	                    JOptionPane.WARNING_MESSAGE);
+			}
+			
 		}
 		else
 		{
-			System.out.println("here1");
 			WorkbookSettings wbSettings = new WorkbookSettings();
 		    wbSettings.setLocale(new Locale("en", "EN"));
 		    WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);

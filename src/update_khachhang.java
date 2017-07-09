@@ -32,41 +32,67 @@ public class update_khachhang {
     private int location_Row=0;
     
 
-public void setOutputFile(String inputFile) {
-    this.inputFile = inputFile;
-    }
+	public void setOutputFile(String inputFile) {
+	    this.inputFile = inputFile;
+	}
+
+	//TO CHECK WHETHER A FILE IS OPENED 
+	//  OR NOT (not for .txt files)
+	private boolean checkFileOpen()
+	{
+	    //  the file we want to check
+		boolean success = false;
+	    String fileName = inputFile;
+	    File file = new File(fileName);
+	    // try to rename the file with the same name
+	    File sameFileName = new File(fileName);
+	    
+	    if(file.renameTo(sameFileName)){
+	        // if the file is renamed
+	        System.out.println("file is closed");
+	        success=true;
+	    }else{
+	        // if the file didnt accept the renaming operation
+	        System.out.println("file is opened");
+	        
+	    }
+	    return success;
+	}
 
     public void write(JTextField name,JTextField service,JTextField date,JTextField payment) throws IOException, WriteException {
 		Workbook w;
 		File file = new File(inputFile);
-		try{
-			w = Workbook.getWorkbook(file);
-		    // Get the first sheet
-		    Sheet sheet = w.getSheet(0);
-		    // Số dòng
-		    lines=sheet.getRows();
-		    // Loop over column and lines
-		    String ten[] = new String[lines];
-		    String diachi[] = new String[lines];
-		    String dienthoai[] = new String[lines];
-		    String luuy[] = new String[lines];
-		    for (int j = 1; j < lines; j++) {
-	            Cell cell = sheet.getCell(0, j);
-	            System.out.println(cell.getContents()+ " "+name.getText());
-	            if (cell.getContents().equals(name.getText()))
-	            {
-	            	location_Row=j;
-	            	System.out.println(location_Row);
-	    		    WritableWorkbook aCopy = Workbook.createWorkbook(file, w);
-	    	        WritableSheet excelSheet = aCopy.getSheet(0);
-	    		    createContent(excelSheet,service,date,payment,location_Row);
-	    	        aCopy.write();
-	    	        aCopy.close();
-	            }
-	        }
-		    
-		} catch (BiffException e) {
-			e.printStackTrace();
+		if(checkFileOpen())
+		{
+			try{
+				w = Workbook.getWorkbook(file);
+			    // Get the first sheet
+			    Sheet sheet = w.getSheet(0);
+			    // Số dòng
+			    lines=sheet.getRows();
+			    // Loop over column and lines
+			    String ten[] = new String[lines];
+			    String diachi[] = new String[lines];
+			    String dienthoai[] = new String[lines];
+			    String luuy[] = new String[lines];
+			    for (int j = 1; j < lines; j++) {
+		            Cell cell = sheet.getCell(0, j);
+		            System.out.println(cell.getContents()+ " "+name.getText());
+		            if (cell.getContents().equals(name.getText()))
+		            {
+		            	location_Row=j;
+		            	System.out.println(location_Row);
+		    		    WritableWorkbook aCopy = Workbook.createWorkbook(file, w);
+		    	        WritableSheet excelSheet = aCopy.getSheet(0);
+		    		    createContent(excelSheet,service,date,payment,location_Row);
+		    	        aCopy.write();
+		    	        aCopy.close();
+		            }
+		        }
+			    
+			} catch (BiffException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
